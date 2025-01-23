@@ -1,0 +1,8 @@
+serverAddr = "frps.2cifang.cn"
+serverPort = 7000
+
+[[proxies]]
+name = "NAME_NO_SET"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22

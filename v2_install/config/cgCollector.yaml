@@ -1,0 +1,125 @@
+logger:
+  path:                  "../data/log"                # 日志文件路径。默认为空，表示关闭，仅输出到终端
+  file:                  "cgCollector.log"            # 日志文件格式。默认为"{Y-m-d}.log"
+  level:                 "all"       # 日志输出级别
+  header:                true          # 是否打印日志的头信息。默认true
+  stdout:                true          # 日志是否同时输出到终端。默认true
+  rotateSize:            "100M"        # 按照日志文件大小对文件进行滚动切分。默认为0，表示关闭滚动切分特性(字节)
+  rotateBackupLimit:     7             # 按照切分的文件数量清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
+  rotateCheckInterval:   "1m"          # 滚动切分的时间检测间隔，一般不需要设置。默认为1小时
+  stdoutColorDisabled:   false         # 关闭终端的颜色打印。默认开启
+  writerColorEnable:     true          # 日志文件是否带上颜色。默认false，表示不带颜色
+  dumpRouterMap:         false         # 是否打印路由
+  logResReq:             false         # 是否记录web api请求参数与返回数据
+
+# 数据库配置
+database:
+  logger:
+    path: "../data/log"                 # 日志文件路径。默认为空，表示关闭，仅输出到终端
+    file: "cgCollector-sql.log"         # 日志文件格式。默认为"{Y-m-d}.log"
+    level: "debug"                      # 日志输出级别
+    header: true                        # 是否打印日志的头信息。默认true
+    stdout: false                       # 日志是否同时输出到终端。默认true
+    rotateSize: "100M"                  # 按照日志文件大小对文件进行滚动切分。默认为0，表示关闭滚动切分特性(字节)
+    rotateBackupLimit: 7                # 按照切分的文件数量清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
+    rotateCheckInterval: "1m"           # 滚动切分的时间检测间隔，一般不需要设置。默认为1小时
+    stdoutColorDisabled: false          # 关闭终端的颜色打印。默认开启
+    writerColorEnable: true             # 日志文件是否带上颜色。默认false，表示不带颜色
+    dumpRouterMap: false                # 是否打印路由
+    logResReq: false                    # 是否记录web api请求参数与返回数据
+  default:
+    host: "192.168.3.99"            # 地址
+    port: "3306"                    # 端口
+    user: "test"                    # 账号
+    pass: "1234"                    # 密码
+    name: "cf_go_lite"              # 数据库名称
+    type: "mysql"                   # 数据库类型(mysql/pgsql/mssql/sqlite/oracle)
+    role: "master"                  # "(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+    debug: "true"                   # "(可选)开启调试模式
+    maxIdle: "50"                   # "(可选)连接池最大闲置的连接数"
+    maxOpen: "100"                  # "(可选)连接池最大打开的连接数"
+
+# grpc服务配置
+collector_grpc:
+  isEnable: false
+  port: 39003
+
+# 程序运行模式
+run:
+  mode: 1  # 运行模式 0-工控机(通过数据库获取设备模板)  1-box(通过url获取设备模板)
+  getInitUrl: "http://box.2cifang.cn/boxinit/"  # 获取设备模板信息的url(box模式下) -- http://box.2cifang.cn/boxinit/xxxxx
+
+# mqtt_client配置
+mqtt:
+  client:
+    enable: true
+    ip: "192.168.3.99"
+    port: 1883
+    user: "mqtt_2cifang"        # 账号
+    pwd: "mqtt_cf1234568"       # 密码
+    sleep: 10                   # 初始化失败重连秒数
+
+# 第三方mqtt客户端配置
+mqttTransponder:             # mqtt转发
+  enable: false
+  ip: "192.168.3.100"         # 服务地址配置
+  port: 1883                  # 端口配置
+  user: "mqtt_test"           # 账号
+  pwd: "mqtt_cf1234568"       # 密码
+  sleep: 10                   # 初始化失败重连秒数
+  maxqueue: 25                # 最大消费协程数
+  isdeldata: false            # 数据是否启动删除 true=是，false=否
+
+# rtu 采集服务配置
+rtu:
+  isEnable: true               #是否开启rtu
+  pollingEnable: true          #是否开启主动轮询
+  pollingInterval: 10          #轮询间隔 秒
+  publishInterval: 20          #发布间隔 秒
+  readTimeout: 30              #RTU读超时 毫秒
+  restartEnable: true          #是否启用超时重启
+  timeOut: 20                  #超时时间 秒
+  updateInterval: 120          #更新轮询对象间隔 秒
+
+# tcp_server 采集服务配置
+tcp:
+  isEnable: true            # tcp服务是否开启
+  port: 6006                 # tcp端口
+  sendTimeout: 3000          # 发送超时时间,毫秒
+  sendInterval: 200          # 发送间隔,毫秒
+  errorResendNum: 3          # 失败重发次数
+  errorStopTime: 30000       # 出错暂停工作时长，毫秒
+  cmdWaitTime: 30000         # 手动命令最长等待时长
+
+  remoteSrvIsEnable: false   # 是否转发数据到远端服务器
+  remoteSrvAddr: "localhost:8999" # 远端tcp服务器地址
+  remoteSrvReConnTime: 3  # 与远端服务器断线重连间隔
+
+# tcp_client 采集服务配置
+tcp_slave:
+  enable: true
+
+# opc_ua 采集服务配置
+opc_ua:
+  enable: true
+
+# bacnet 采集服务配置
+bac_net:
+  enable: true
+
+# snap7 采集服务配置
+snap7:
+  enable: true
+
+# 数据采集配置
+gather:
+  cacheEnable:  true      # mqtt客户端断线后,是否将采集数据放入缓存文件
+  cacheFileSize: 16000000  # 缓存文件最大容量(字节)
+  enableDifferentiatedDataReporting: false #是否开启差异化数据上报
+  differentiatedDataReportingMaximumInterval: 5 #差异化数据上报最大间隔(分钟)
+
+# 串口配置
+serial_port:
+  read_wait_time: 500     # 串口读取等待时间(毫秒)
+  read_interval: 100      # 串口读取间隔时间(毫秒)
+  read_time_out: 1000     # 串口读取超时时间(毫秒)
