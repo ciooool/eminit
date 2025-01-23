@@ -130,12 +130,12 @@ func (t *FirmwareFlashTool) setupEntries() {
 func (t *FirmwareFlashTool) setupPlaceholders() {
 	t.output.SetPlaceHolder("输出...")
 	t.snEntry.SetPlaceHolder("请输入设备SN")
-	t.net1AddressEntry.SetPlaceHolder("输入 LAN1 IP 地址")
-	t.net1NetmaskEntry.SetPlaceHolder("输入 LAN1 子网掩码")
-	t.net1GatewayEntry.SetPlaceHolder("输入 LAN1 网关地址，不填默认为空")
-	t.net2AddressEntry.SetPlaceHolder("输入 LAN2 IP 地址")
-	t.net2NetmaskEntry.SetPlaceHolder("输入 LAN2 子网掩码")
-	t.net2GatewayEntry.SetPlaceHolder("输入 LAN2 网关地址，不填默认为空")
+	t.net1AddressEntry.SetPlaceHolder("输入 LAN1 IP 地址，不可为空")
+	t.net1NetmaskEntry.SetPlaceHolder("输入 LAN1 子网掩码，不可为空")
+	t.net1GatewayEntry.SetPlaceHolder("输入 LAN1 网关地址，可为空")
+	t.net2AddressEntry.SetPlaceHolder("输入 LAN2 IP 地址，不可为空")
+	t.net2NetmaskEntry.SetPlaceHolder("输入 LAN2 子网掩码，不可为空")
+	t.net2GatewayEntry.SetPlaceHolder("输入 LAN2 网关地址，可为空")
 }
 
 func (t *FirmwareFlashTool) setupSelects() {
